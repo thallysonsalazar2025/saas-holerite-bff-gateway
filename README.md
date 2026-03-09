@@ -1,6 +1,6 @@
-# SaaS Holerite BFF Gateway
+# SH BFF Gateway
 
-Gateway/BFF em Java com Spring Boot para autenticação e controle de acesso por perfil (prefeitura, empresa, admin), com emissão de JWT para o front-end.
+Gateway/BFF em Java com Spring Boot para autenticação e controle de acesso por perfil, com emissão de JWT para o front-end.
 
 ## Fluxo implementado
 
