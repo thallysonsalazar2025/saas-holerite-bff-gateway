@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+security:
+  jwt:
+    secret: "minha-chave-super-segura-com-ao-menos-32-bytes-2026"
+    expiration-seconds: 3600
+
+spring:
+  application:
+    name: saas-holerite-bff-gateway
