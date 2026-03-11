@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>org.com</groupId>
-    <artifactId>saas-holerite-bff-gateway</artifactId>
+    <artifactId>sboot-security-base-auth-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>saas-holerite-bff-gateway</name>
+    <name>sboot-security-base-auth-service</name>
     <description>BFF Gateway para autenticação e autorização via JWT</description>
 
     <properties>

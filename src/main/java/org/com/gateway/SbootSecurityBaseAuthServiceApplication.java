@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SaasHoleriteBffGatewayApplication {
+public class SbootSecurityBaseAuthServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SaasHoleriteBffGatewayApplication.class, args);
+        SpringApplication.run(SbootSecurityBaseAuthServiceApplication.class, args);
     }
 }
