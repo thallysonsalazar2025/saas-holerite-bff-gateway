@@ -1,8 +1,8 @@
-C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\auth\AuthController.java
-C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\auth\GatewayController.java
-C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\auth\UserProfileController.java
 C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\config\BootstrapConfig.java
 C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\config\H2ServerConfig.java
+C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\controller\AuthController.java
+C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\controller\GatewayController.java
+C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\controller\UserProfileController.java
 C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\model\request\AuthRequest.java
 C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\model\request\LoginRequest.java
 C:\Workspace\saas-holerite-bff-gateway\src\main\java\org\com\gateway\model\response\AuthResponse.java

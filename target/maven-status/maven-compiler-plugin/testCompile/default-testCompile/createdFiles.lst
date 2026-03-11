@@ -1,1 +1,3 @@
+org\com\gateway\controller\AuthControllerIntegrationTest.class
 org\com\gateway\auth\AuthControllerTest.class
+org\com\gateway\controller\AuthControllerTest.class
