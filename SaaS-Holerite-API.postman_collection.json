@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+		"name": "SaaS Holerite BFF API",
+		"description": "Collection para a API Gateway do sistema de SaaS de Holerites.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Captura o token da resposta e o armazena em uma variável de coleção",
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+									"    console.log(\"Token de acesso salvo com sucesso!\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"joao.silva\",\n    \"password\": \"senhaForte123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Autentica um usuário e retorna um token JWT. O token é salvo automaticamente para ser usado nas próximas requisições."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Holerites",
+			"item": [
+				{
+					"name": "Listar Holerites por Ano",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payslips?year=2023",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payslips"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2023",
+									"description": "Filtra os holerites pelo ano. Se não for fornecido, retorna o ano corrente."
+								}
+							]
+						},
+						"description": "Retorna a lista de holerites disponíveis para o usuário autenticado."
+					},
+					"response": []
+				},
+				{
+					"name": "Detalhar Holerite por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payslips/a1b2c3d4-e5f6-7890-1234-567890abcdef",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payslips",
+								"a1b2c3d4-e5f6-7890-1234-567890abcdef"
+							]
+						},
+						"description": "Busca todas as informações de um holerite, incluindo proventos e descontos."
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{accessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"description": "Operações para visualização e download de holerites. Requer autenticação."
+		}
+	],
+	"auth": {
+		"type": "noauth"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string",
+			"description": "URL base do servidor de desenvolvimento."
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string",
+			"description": "Token JWT obtido após o login. É preenchido automaticamente."
+		}
+	]
+}

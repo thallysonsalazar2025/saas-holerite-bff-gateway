@@ -1,0 +1,193 @@
+openapi: 3.0.1
+info:
+  title: "SaaS Holerite BFF Gateway API"
+  description: |-
+    API Gateway para o sistema de SaaS de Holerites.
+    Este BFF (Backend for Frontend) é o ponto de entrada único para as aplicações cliente (web/mobile),
+    orquestrando chamadas para os microsserviços internos.
+  version: "1.0.0"
+  contact:
+    name: "Time de Engenharia"
+    email: "dev-team@example.com"
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor de Desenvolvimento Local
+
+tags:
+  - name: Autenticação
+    description: Operações relacionadas à autenticação de usuários
+  - name: Holerites
+    description: Operações para visualização e download de holerites
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Autenticação
+      summary: Autentica um usuário e retorna um token JWT
+      description: O usuário envia suas credenciais (email/senha) para obter um token de acesso.
+      operationId: loginUser
+      requestBody:
+        description: Credenciais do usuário para login
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Autenticação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Não autorizado. Credenciais inválidas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /api/users/profile:
+    get:
+      tags:
+        - Autenticação
+      summary: Retorna o perfil do usuário autenticado
+      description: Obtém detalhes do perfil (username, roles) do usuário logado via token JWT.
+      operationId: getUserProfile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Informações do usuário retornadas com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '401':
+          description: Não autorizado. Token JWT inválido ou ausente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "Token de acesso JWT. Exemplo: 'Bearer {token}'"
+
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          description: "Nome de usuário para autenticação."
+          example: "joao.silva"
+        password:
+          type: string
+          format: password
+          example: "senhaForte123"
+
+    LoginResponse:
+      type: object
+      required:
+        - accessToken
+        - tokenType
+        - expiresIn
+      properties:
+        accessToken:
+          type: string
+          description: Token de acesso JWT para ser usado nas próximas requisições.
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        tokenType:
+          type: string
+          description: "Tipo do token. Geralmente 'Bearer'."
+          example: "Bearer"
+        expiresIn:
+          type: integer
+          format: int64
+          description: "Tempo de expiração do token em segundos."
+          example: 3600
+        profile:
+          type: string
+          description: "Perfil ou role do usuário autenticado."
+          example: "USER"
+
+    UserInfo:
+      type: object
+      description: "Informações do usuário autenticado."
+      properties:
+        username:
+          type: string
+          example: "joao.silva"
+        roles:
+          type: array
+          items:
+            type: object
+            properties:
+              authority:
+                type: string
+                example: "USER"
+
+    PayslipSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+        month:
+          type: string
+          example: "Janeiro"
+        year:
+          type: integer
+          example: 2023
+
+    PayslipDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        employeeName:
+          type: string
+          example: "João da Silva"
+        period:
+          type: string
+          example: "01/2023"
+        grossSalary:
+          type: number
+          format: double
+          example: 5000.00
+        totalDiscounts:
+          type: number
+          format: double
+          example: 800.00
+        netSalary:
+          type: number
+          format: double
+          example: 4200.00
+
+    ApiError:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string

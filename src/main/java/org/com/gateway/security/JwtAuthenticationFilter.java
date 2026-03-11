@@ -19,10 +19,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtServiceConfig jwtServiceConfig;
 
-    public JwtAuthenticationFilter(JwtService jwtService) {
-        this.jwtService = jwtService;
+    public JwtAuthenticationFilter(JwtServiceConfig jwtServiceConfig) {
+        this.jwtServiceConfig = jwtServiceConfig;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = header.substring(7);
 
         try {
-            Claims claims = jwtService.extractAllClaims(token);
+            Claims claims = jwtServiceConfig.extractAllClaims(token);
             @SuppressWarnings("unchecked")
             List<String> roles = claims.get("roles", List.class);
             Collection<SimpleGrantedAuthority> authorities = roles == null ? List.of() : roles.stream()

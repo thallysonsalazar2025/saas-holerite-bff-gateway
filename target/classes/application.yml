@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+security:
+  jwt:
+    secret: "minha-chave-super-segura-com-ao-menos-32-bytes-2026"
+    expiration-seconds: 3600
+
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/saas-holerite-db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
