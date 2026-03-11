@@ -7,6 +7,8 @@ security:
     expiration-seconds: 3600
 
 spring:
+  application:
+    name: sboot-security-base-auth-service
   datasource:
     url: "${DB_URL}"
     driver-class-name: org.h2.Driver
